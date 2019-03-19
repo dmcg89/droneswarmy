@@ -13,6 +13,10 @@ app.engine('handlebars', handlebars({
   layoutsDir: __dirname + '/views/layouts', // eslint-disable-line
 }));
 
+module.exports = app;
+
+const faces = require('./controllers/faces')(app);
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'handlebars');
