@@ -2,7 +2,7 @@
   "name": "droneintensive",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +15,14 @@
   "bugs": {
     "url": "https://github.com/dmcg89/droneswarmy/issues"
   },
-  "homepage": "https://github.com/dmcg89/droneswarmy#readme"
+  "homepage": "https://github.com/dmcg89/droneswarmy#readme",
+  "devDependencies": {
+    "eslint": "^5.15.3",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.2"
+  }
 }
