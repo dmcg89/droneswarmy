@@ -4,6 +4,7 @@ const app = express();
 
 const handlebars = require('express-handlebars');
 
+// Lines used to set up the view engine handlebars
 app.engine('handlebars', handlebars({
   extname: 'handlebars',
   defaultLayout: 'main',
