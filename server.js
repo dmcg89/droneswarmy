@@ -2,13 +2,19 @@ const express = require('express');
 
 const app = express();
 
-const hbs = require('express-handlebars');
+const handlebars = require('express-handlebars');
 
-app.engine('hbs', hbs({
-  extname: 'hbs',
+app.engine('handlebars', handlebars({
+  extname: 'handlebars',
   defaultLayout: 'main',
-  layoutsDir: __dirname + '/views/layouts', // eslint-disable-line 
+  layoutsDir: __dirname + '/views/layouts', // eslint-disable-line
 }));
+
+app.set('view engine', 'handlebars');
+
+app.get('/', (req, res) => {
+  res.render('index');
+});
 
 const PORT = process.env.PORT || 3000;
 
