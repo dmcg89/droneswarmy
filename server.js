@@ -7,7 +7,7 @@ const hbs = require('express-handlebars');
 app.engine('hbs', hbs({
   extname: 'hbs',
   defaultLayout: 'main',
-  layoutsDir: __dirname + '/views/layouts',
+  layoutsDir: __dirname + '/views/layouts', // eslint-disable-line 
 }));
 
 const PORT = process.env.PORT || 3000;
