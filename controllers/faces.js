@@ -1,10 +1,10 @@
-var oxford = require('project-oxford');
+const oxford = require('project-oxford');
 
 module.exports = function (app) {
 
   app.get('/detect', (req, res) => {
 
-    let oxc = new oxford.Client('28d68cd2760e47fc913b7b8619378b84');
+    const oxc = new oxford.Client('28d68cd2760e47fc913b7b8619378b84');
 
     loadFaces = function() {
       const sam_url = 'https://cdn.filestackcontent.com/QGaBPrdFQnGKLXx9tGlX';
@@ -14,17 +14,39 @@ module.exports = function (app) {
       oxc.face.faceList.addFace('myFaces', {url : ryan_url, name : 'Ryan'});
     }
 
-      oxc.face.detect({
-       path: './RyanPhoto.jpg',
-       analyzesAge: true,
-       analyzesGender: true
-      }).then(function (response) {
-        console.log("this ran");
-        res.json(response);
+    function createNewFaceList(ListIdName,ListName){
+      client.face.faceList.create(ListIdName,{
+        name : ListName
+      })
+      .catch (function(e) {
+        console.log(e); // "Something went wrong !"
+      }).then (function (){
+        console.log("Created Your FaceList");
       });
-    });
+    }
 
-    app.get('/', (req, res) => {
-      res.render("index.handlebars");
+    // console.log(oxc.face.faceList.myFaces);
+
+    oxc.face.detect({
+      path: '/Users/samharrison/code/droneswarmy/controllers/RyanPhoto.jpg',
+      analyzesAge: true,
+      analyzesGender: true,
+      returnFaceId: true
+    }).then(function (response) {
+      oxc.face.similar(response[0].faceId,{
+        candidateFaceListId : "MyFaces"
+      }).catch(function(e) {
+        console.log(e); // "oh, no!"
+      }).then (function (anotha_response) {
+        console.log("______detection")
+        console.log(anotha_response);
+      });
+      console.log("this ran");
+      res.json(response);
     });
+  });
+
+  app.get('/', (req, res) => {
+    res.render("index.handlebars");
+  });
 }
