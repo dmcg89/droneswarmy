@@ -26,7 +26,9 @@ function createNewFaceList(ListIdName,ListName){
 
 function findKnownFaces(DetectId,searchFaceListName){
   client.face.similar(DetectId,{
-    candidateFaceListId : searchFaceListName
+    candidateFaceListId : searchFaceListName,
+    maxNumOfCandidatesReturned: 10,
+    mode: "matchFace"
   }).catch(function(e) {
      console.log(e); // "oh, no!"
   }).then(function (response) {
