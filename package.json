@@ -24,6 +24,12 @@
   "dependencies": {
     "express": "^4.16.4",
     "express-handlebars": "^3.0.2",
-    "project-oxford": "^2.0.0"
+    "project-oxford": "^2.0.0",
+    "readline-sync": "^1.4.9",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
+    "say": "^0.15.0",
+    "text-to-speech-js": "^1.1.9",
+    "xmlbuilder": "^11.0.0"
   }
 }

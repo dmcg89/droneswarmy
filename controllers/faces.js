@@ -1,4 +1,5 @@
 var oxford = require('project-oxford');
+const say = require('say');
 var client = new oxford.Client('28d68cd2760e47fc913b7b8619378b84');
 
 function includeASearchFace(groupname,imgpath,personname){
@@ -27,20 +28,22 @@ function createNewFaceList(ListIdName,ListName){
 function findKnownFaces(DetectId,searchFaceListName){
   client.face.similar(DetectId,{
     candidateFaceListId : searchFaceListName,
-    maxNumOfCandidatesReturned: 10,
     mode: "matchFace"
   }).catch(function(e) {
      console.log(e); // "oh, no!"
   }).then(function (response) {
-    console.log(response);
    if (response[0] != null) {
         if (response[0].confidence > 0.5) {
+          say.speak('Hello ' + searchFaceListName)
           console.log("Good Match - Found you");
           console.log(response);
+       } else {
+         console.log("Poor match!");
+         console.log(response);
        }
    } else {
      console.log("Poor or No Match");
-    console.log(response);
+     console.log(response);
   }
   });
 }
@@ -61,25 +64,30 @@ module.exports = function (app) {
 
   app.get('/detect', (req, res) => {
 
-    const facelist = 'myfaces'
+    const facelist = ['ryan', 'sam'];
 
     const sam_url = 'https://cdn.filestackcontent.com/QGaBPrdFQnGKLXx9tGlX';
     const ryan_url = 'https://cdn.filestackcontent.com/pZKWut31Qd6uli06dqJw';
 
-
-    //createNewFaceList(facelist,"students");
+// mac address
+// f018981891e1
+    // for(item in facelist){
+    //   createNewFaceList(facelist[item],facelist[item] + " pictures");
+    // }
     console.log("**********************")
 
-    //includeASearchFace(facelist,sam_url,'Sam');
-    //includeASearchFace(facelist,ryan_url,'Ryan');
+    // includeASearchFace(facelist[1],sam_url,'Sam');
+    // includeASearchFace(facelist[0],ryan_url,'Ryan');
 
-    runAll('/Users/samharrison/code/droneswarmy/controllers/RyanPhoto.jpg',facelist)
+    for( item in facelist){
+      console.log('checking ' + facelist[item])
+      runAll('/Users/samharrison/code/droneswarmy/controllers/RyanPhoto.jpg',facelist[item])
+    }
 
 
+    // console.log(client.face.faceList);
 
-    /*console.log(client.face.faceList.get(facelist));
-
-    client.face.detect({
+    /* client.face.detect({
        path: '/Users/samharrison/code/droneswarmy/controllers/RyanPhoto.jpg',
        analyzesAge: true,
        analyzesGender: true,
